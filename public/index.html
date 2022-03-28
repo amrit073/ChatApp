@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<script>
+    const fetchCom = async () =>{
+        res = await fetch('/getCom')
+        res2 = await res.json()
+        console.log(res2);
+        initial = document.getElementsByClassName('livechat')[0].innerHTML
+        init=''
+        res2.forEach(element => {
+            init = init + `<b> ${element.text} </b><br>`
+        });
+        if (initial != init){
+        document.getElementsByClassName('livechat')[0].innerHTML = init}
+    }
+
+    const repeatReq = () =>{
+        setInterval(fetchCom, 2000)
+    }
+
+</script>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHAT_APP</title>
+</head>
+<body>
+    <form action="/send" method="post" >
+        <input type="text" name="comment" id="commento">
+        <input type="submit" value="submit">
+    </form> 
+
+    <div onclick="repeatReq()">
+    <b>CHATS:</b>
+    <div class="livechat" ></div>
+    </div>
+
+</body>
+</html>
